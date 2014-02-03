@@ -12,14 +12,13 @@ git_update will allow you to pull down all versions of master
 Take this repo and place it in the root path of the meta-project.  For example, your directories could look like:
 
 ```
-FooFoBerry
+PlantingSeason
 |\
 | processes/
-| costner_goes_postal/
-| feed_engine_api/
-| feed_engine_auth/
-| feed_engine_front_end/
-| feed_engine_proxy/
+| planting_season_auth/
+| planting_season_coordinator/
+| planting_season_API/
+
 ```
 
 Install foreman if you don't have it already
