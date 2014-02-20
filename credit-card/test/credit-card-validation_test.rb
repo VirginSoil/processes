@@ -1,0 +1,58 @@
+gem 'minitest'
+require 'minitest/autorun'
+require 'minitest/pride'
+require './lib/credit-card'
+
+class LuhnValidationTest < Minitest::Unit::TestCase
+
+  def test_cipher
+    luhn = Luhn.new(12121)
+    assert_equal [1, 4, 1, 4, 1], luhn.cipher
+  end
+
+  def test_too_large_number_in_cipher
+    luhn = Luhn.new(8631)
+    assert_equal [7, 6, 6, 1], luhn.cipher
+  end
+
+  def test_checksum
+    luhn = Luhn.new(4913)
+    assert_equal 22, luhn.checksum
+  end
+
+  def test_checksum_again
+    luhn = Luhn.new(201773)
+    assert_equal 21, luhn.checksum
+  end
+
+  def test_invalid_number
+    luhn = Luhn.new(738)
+    assert !luhn.valid?
+  end
+
+  def test_valid_number
+    luhn = Luhn.new(8739567)
+    assert luhn.valid?
+  end
+
+  def test_create_valid_number
+    number = Luhn.create(123)
+    assert_equal 1230, number
+  end
+
+  def test_create_other_valid_number
+    number = Luhn.create(873956)
+    assert_equal 8739567, number
+  end
+
+  def test_create_yet_another_valid_number
+    number = Luhn.create(837263756)
+    assert_equal 8372637564, number
+  end
+
+  def test_sixteen_digits_is_a_valid_luhn
+    number = Luhn.create(1234567891234567)
+    assert_equal 12345678912345677, number
+  end
+
+end
